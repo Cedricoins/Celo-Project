@@ -30,3 +30,28 @@ Ce repository a pour but de centraliser des informations, ressources et guides p
 ---  
 
 Celo n’est pas seulement une blockchain, c’est une vision : celle de rendre la finance accessible à chacun, sans barrière technologique ni frontière.  
+
+# 📦 Celo Project – Mise à jour
+
+Cette version du projet **Celo** apporte des améliorations importantes et des correctifs pour optimiser l’expérience développeur et utilisateur.
+
+## 🌟 Nouveautés
+- Optimisation des interactions avec la blockchain Celo
+- Correctifs sur les smart contracts d’exemple
+- Mise à jour des guides et ressources pour le développement
+- Amélioration de la compatibilité avec les outils EVM
+
+## 🌍 À propos de Celo
+Celo est une blockchain mobile-first open-source qui rend la finance décentralisée accessible à tous.  
+Elle permet :
+- Des transactions rapides et peu coûteuses
+- Une compatibilité totale avec Ethereum
+- Une expérience mobile simplifiée
+
+## 📖 Objectif du repository
+Centraliser toutes les ressources, guides et exemples pour découvrir et développer sur Celo.
+
+## 🔗 Ressources utiles
+- [Documentation officielle](https://docs.celo.org/)
+- [Celo GitHub](https://github.com/celo-org)
+- [Communauté Discord](https://discord.gg/celo)
