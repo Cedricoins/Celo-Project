@@ -1,0 +1,141 @@
+🚀 Template d’architecture : Next.js + Hardhat (Solidity) + Celo
+/project-root
+│
+├── /contracts
+│   ├── MyContract.sol
+│   ├── ... autres contrats
+│   └── README.md
+│
+├── /scripts
+│   ├── deploy.js
+│   ├── verify.js
+│   └── interact.js
+│
+├── /test
+│   ├── MyContract.test.js
+│   └── ...
+│
+├── /frontend   (→ App Next.js, déployée sur Vercel)
+│   ├── /app
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   └── ...
+│   │
+│   ├── /components
+│   │   ├── WalletConnect.tsx
+│   │   ├── ContractUI.tsx
+│   │   └── ...
+│   │
+│   ├── /hooks
+│   │   ├── useCeloWallet.ts
+│   │   ├── useContract.ts
+│   │   └── ...
+│   │
+│   ├── /lib
+│   │   ├── celo-config.ts
+│   │   ├── contract-address.ts
+│   │   └── contract-abi.json
+│   │
+│   ├── /public
+│   └── package.json
+│
+├── hardhat.config.js
+├── package.json
+├── .env           (clé privée pour déploiement Celo)
+├── .env.local     (config front)
+└── README.md
+
+🧩 Explication des dossiers
+📁 /contracts
+
+Tes smart contracts Solidity pour Celo.
+
+Exemple :
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
+
+contract MyContract {
+    uint public value;
+    function setValue(uint _v) public {
+        value = _v;
+    }
+}
+
+📁 /scripts
+
+Scripts Hardhat pour déployer et interagir avec Celo.
+
+Exemple deploy.js :
+
+async function main() {
+  const Contract = await ethers.getContractFactory("MyContract");
+  const contract = await Contract.deploy();
+  await contract.waitForDeployment();
+  console.log("Deployed at:", await contract.getAddress());
+}
+main();
+
+📁 /frontend (Next.js 14 / App Router)
+/components/
+
+Composants UI (wallet, boutons, formulaires…).
+
+/hooks/
+
+Logique web3 (connection à Celo, appel des contrats).
+
+/lib/
+
+celo-config.ts : RPC, chainId, providers
+
+contract-abi.json : ABI exportée
+
+contract-address.ts : adresse déployée
+
+🔧 Exemple de configuration pour Celo (hardhat.config.js)
+require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config();
+
+module.exports = {
+  solidity: "0.8.19",
+  networks: {
+    celo: {
+      url: "https://forno.celo.org",
+      accounts: [process.env.PRIVATE_KEY],
+    },
+    celo_alfajores: {
+      url: "https://alfajores-forno.celo-testnet.org",
+      accounts: [process.env.PRIVATE_KEY],
+    },
+  },
+};
+
+🌐 Connexion Celo dans Next.js (wagmi + celo plugin)
+
+useCeloWallet.ts :
+
+import { createConfig, celo, celoAlfajores } from "@celo/rainbowkit-celo";
+import { WagmiConfig } from "wagmi";
+
+export const wagmiConfig = createConfig({
+  chains: [celo, celoAlfajores],
+});
+
+🚀 Déploiement sur Vercel
+Dans frontend/.env.local
+NEXT_PUBLIC_CONTRACT_ADDRESS=0x....
+NEXT_PUBLIC_CELO_RPC=https://forno.celo.org
+
+Build Vercel
+
+Vercel déploie automatiquement ton frontend.
+Aucun besoin de builder le dossier Solidity.
+
+🎯 Workflow complet
+1️⃣ coder smart contracts
+2️⃣ tester (hardhat test)
+3️⃣ deploy sur Celo → scripts/deploy.js
+4️⃣ copier l’adresse + ABI dans frontend/lib
+5️⃣ dev Next.js
+6️⃣ push → Vercel build & deploy
